@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fragrances – RENzia Luxury Scents</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96B;
+    --gold-dark: #8B6914;
+    --gold-pale: #F5E9C6;
+    --black: #070707;
+    --black-rich: #0D0D0D;
+    --black-soft: #141414;
+    --black-mid: #1E1C18;
+    --white: #F9F3E8;
+    --text-muted: #9A8B6E;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.5;
+  }
+  .cursor.hovering { width: 20px; height: 20px; }
+  .cursor-ring.hovering { width: 56px; height: 56px; opacity: 0.2; }
+
+  /* ========== NAVBAR ========== */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 60px;
+    background: linear-gradient(to bottom, rgba(7,7,7,0.98) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--white); font-weight: 400; }
+  .nav-links { display: flex; gap: 38px; list-style: none; }
+  .nav-links a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    text-transform: uppercase;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-cta {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 10px 24px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.3s, color 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+  /* ========== HERO ========== */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 120px 40px 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 50% 60%, rgba(201,168,76,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+  /* Gold grain overlay */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.2s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.45s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 300;
+  }
+  .hero-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    max-width: 480px;
+    line-height: 1.9;
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.7s forwards;
+  }
+  .hero-divider {
+    width: 120px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 0 auto 52px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s forwards;
+  }
+  .hero-scroll span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.35em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  /* Floating orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+  .orb-1 { width: 400px; height: 400px; background: rgba(201,168,76,0.05); top: 10%; right: -100px; animation-delay: 0s; }
+  .orb-2 { width: 300px; height: 300px; background: rgba(201,168,76,0.04); bottom: 10%; left: -80px; animation-delay: -4s; }
+
+  /* ========== FILTER BAR ========== */
+  .filter-section {
+    padding: 60px 60px 0;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .filter-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .filter-pills {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .pill {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    padding: 8px 20px;
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--text-muted);
+    background: transparent;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .pill:hover { border-color: var(--gold); color: var(--gold); }
+  .pill.active { background: var(--gold); border-color: var(--gold); color: var(--black); }
+  .filter-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+  }
+  .filter-count strong { color: var(--gold); font-weight: 400; }
+
+  /* ========== FRAGRANCE GRID ========== */
+  .fragrances-section {
+    padding: 50px 60px 100px;
+  }
+  .fragrances-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .fragrance-card {
+    position: relative;
+    background: var(--black-soft);
+    overflow: hidden;
+    cursor: none;
+    min-height: 520px;
+    display: flex; flex-direction: column;
+    transition: z-index 0s;
+  }
+  .fragrance-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 30%, rgba(7,7,7,0.95) 100%);
+    z-index: 2; pointer-events: none;
+    transition: opacity 0.5s;
+  }
+  .fragrance-card:hover::before { opacity: 0.7; }
+
+  /* Gold border reveal on hover */
+  .fragrance-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    border: 1px solid transparent;
+    transition: border-color 0.4s;
+    z-index: 5; pointer-events: none;
+  }
+  .fragrance-card:hover::after { border-color: rgba(201,168,76,0.4); }
+
+  .card-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .fragrance-card:hover .card-bg { transform: scale(1.05); }
+
+  /* Unique backgrounds per card using CSS gradients */
+  .card-bg-oud { background: radial-gradient(ellipse at 40% 30%, #3D1F10 0%, #1A0D06 40%, #0A0704 100%); }
+  .card-bg-rose { background: radial-gradient(ellipse at 60% 40%, #3D1826 0%, #1A0B12 40%, #080507 100%); }
+  .card-bg-amber { background: radial-gradient(ellipse at 50% 20%, #3D2E08 0%, #1A1404 40%, #090700 100%); }
+  .card-bg-noir { background: radial-gradient(ellipse at 30% 60%, #0F1020 0%, #070810 40%, #020206 100%); }
+  .card-bg-iris { background: radial-gradient(ellipse at 70% 30%, #1A1A3D 0%, #0D0D1A 40%, #040407 100%); }
+  .card-bg-saffron { background: radial-gradient(ellipse at 45% 45%, #3D2208 0%, #1A0F04 40%, #090603 100%); }
+
+  /* Decorative circle */
+  .card-circle {
+    position: absolute;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.12);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    transition: transform 0.8s, width 0.8s, height 0.8s, border-color 0.4s;
+  }
+  .fragrance-card:hover .card-circle {
+    transform: translate(-50%, -55%) scale(1.1);
+    border-color: rgba(201,168,76,0.25);
+  }
+  .card-circle-inner {
+    position: absolute;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Floating bottle icon (CSS art) */
+  .bottle-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -70%);
+    z-index: 3;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: drop-shadow(0 20px 60px rgba(201,168,76,0.2));
+  }
+  .fragrance-card:hover .bottle-icon {
+    transform: translate(-50%, -72%) scale(1.05);
+    filter: drop-shadow(0 30px 80px rgba(201,168,76,0.35));
+  }
+
+  .card-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 32px;
+    z-index: 4;
+  }
+  .card-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-dark);
+    margin-bottom: 8px;
+  }
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.1rem;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 4px;
+    transition: color 0.3s;
+  }
+  .fragrance-card:hover .card-name { color: var(--gold-pale); }
+  .card-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .card-notes {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 20px;
+    transform: translateY(8px);
+    opacity: 0;
+    transition: opacity 0.4s, transform 0.4s;
+    transition-delay: 0.05s;
+  }
+  .fragrance-card:hover .card-notes { opacity: 1; transform: translateY(0); }
+  .note-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    padding: 4px 10px;
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+  }
+  .card-price-row {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+  }
+  .card-price span {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+  .card-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    padding: 10px 18px;
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    text-transform: uppercase;
+    cursor: none;
+    transform: translateX(8px);
+    opacity: 0;
+    transition: opacity 0.4s, transform 0.4s, background 0.3s;
+    transition-delay: 0.1s;
+  }
+  .fragrance-card:hover .card-btn { opacity: 1; transform: translateX(0); }
+  .card-btn:hover { background: var(--gold-light); }
+
+  /* Featured (wide) card */
+  .fragrance-card.featured {
+    grid-column: span 2;
+  }
+  .fragrance-card.featured .card-name { font-size: 3.2rem; }
+  .fragrance-card.featured .card-circle { width: 400px; height: 400px; }
+  .fragrance-card.featured .card-circle-inner { width: 260px; height: 260px; }
+
+  /* ========== LUXURY BANNER ========== */
+  .banner {
+    padding: 0 60px 2px;
+  }
+  .banner-inner {
+    position: relative;
+    background: var(--black-mid);
+    padding: 70px 80px;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px;
+  }
+  .banner-inner::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .banner-inner::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .banner-text-group { flex: 1; }
+  .banner-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .banner-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .banner-title em { font-style: italic; color: var(--gold); }
+  .banner-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 2;
+    max-width: 460px;
+    letter-spacing: 0.05em;
+  }
+  .banner-stats {
+    display: flex; flex-direction: column; gap: 32px;
+    border-left: 1px solid rgba(201,168,76,0.15);
+    padding-left: 60px;
+    min-width: 260px;
+  }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .banner-bg-text {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.02);
+    right: -40px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: -0.05em;
+  }
+
+  /* ========== VENDING EXPERIENCE ========== */
+  .experience-section {
+    padding: 100px 60px;
+  }
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 70px;
+  }
+  .section-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.05;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-link {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    transition: border-color 0.3s;
+    white-space: nowrap;
+  }
+  .section-link:hover { border-color: var(--gold); }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.08);
+  }
+  .step {
+    background: var(--black);
+    padding: 50px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+  .step:hover { background: var(--black-soft); }
+  .step-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.08);
+    position: absolute;
+    top: 20px; right: 24px;
+    line-height: 1;
+    transition: color 0.4s;
+  }
+  .step:hover .step-number { color: rgba(201,168,76,0.15); }
+  .step-icon {
+    width: 48px; height: 48px;
+    margin-bottom: 28px;
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .step-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+  }
+  .step-line {
+    position: absolute; bottom: 0; left: 0;
+    height: 2px; width: 0;
+    background: var(--gold);
+    transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .step:hover .step-line { width: 100%; }
+
+  /* ========== TESTIMONIAL ========== */
+  .testimonial-section {
+    padding: 0 60px 100px;
+  }
+  .testimonial-inner {
+    background: var(--black-mid);
+    padding: 80px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .testimonial-inner::before {
+    content: '"';
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30rem;
+    color: rgba(201,168,76,0.03);
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.6rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.5;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    position: relative; z-index: 1;
+  }
+  .testimonial-author {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .author-line {
+    width: 40px; height: 1px;
+    background: var(--gold);
+    margin-bottom: 12px;
+  }
+  .author-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .author-city {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ========== NEWSLETTER ========== */
+  .newsletter-section {
+    padding: 0 60px 120px;
+  }
+  .newsletter-inner {
+    display: flex; gap: 80px;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding-top: 80px;
+    align-items: flex-start;
+  }
+  .newsletter-left { flex: 1; }
+  .newsletter-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .newsletter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .newsletter-title em { font-style: italic; color: var(--gold); }
+  .newsletter-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 2;
+    letter-spacing: 0.04em;
+  }
+  .newsletter-form { flex: 1; display: flex; flex-direction: column; gap: 16px; padding-top: 12px; }
+  .form-row { display: flex; gap: 16px; }
+  .form-field {
+    flex: 1;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .form-field label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.25em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .form-field input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 12px 0;
+    color: var(--white);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    outline: none;
+    cursor: none;
+    transition: border-color 0.3s;
+  }
+  .form-field input::placeholder { color: rgba(154,139,110,0.4); }
+  .form-field input:focus { border-color: var(--gold); }
+  .form-submit {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 10px;
+  }
+  .submit-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    padding: 16px 40px;
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .submit-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .form-note {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--black-rich);
+    border-top: 1px solid rgba(201,168,76,0.08);
+    padding: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 30px;
+  }
+  .footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+  }
+  .footer-logo span { color: rgba(249,243,232,0.4); font-weight: 400; }
+  .footer-copy {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ========== ANIMATIONS ========== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.4); opacity: 0.3; }
+  }
+  @keyframes orbFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* GOLD SHIMMER for card hover */
+  @keyframes shimmer {
+    from { background-position: -200% center; }
+    to { background-position: 200% center; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links, .nav-cta { display: none; }
+    .hero { padding: 100px 24px 80px; }
+    .filter-section { padding: 40px 24px 0; flex-wrap: wrap; gap: 16px; }
+    .fragrances-section { padding: 30px 24px 60px; }
+    .fragrances-grid { grid-template-columns: 1fr; }
+    .fragrance-card.featured { grid-column: span 1; }
+    .banner { padding: 0 24px 2px; }
+    .banner-inner { padding: 40px 28px; flex-direction: column; }
+    .banner-stats { border-left: none; border-top: 1px solid rgba(201,168,76,0.15); padding-left: 0; padding-top: 30px; flex-direction: row; flex-wrap: wrap; }
+    .experience-section { padding: 60px 24px; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .testimonial-section { padding: 0 24px 60px; }
+    .testimonial-inner { padding: 40px 28px; }
+    .newsletter-section { padding: 0 24px 60px; }
+    .newsletter-inner { flex-direction: column; gap: 40px; }
+    .form-row { flex-direction: column; }
+    footer { padding: 30px 24px; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navigation -->
+<nav>
+  <a class="nav-logo" href="#">REN<span>zia</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#" class="active">Fragrances</a></li>
+    <li><a href="#">Dealership</a></li>
+    <li><a href="#">Network</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#">Book a Demo</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <p class="hero-eyebrow">The RENzia Collection</p>
+  <h1 class="hero-title">Luxury<br>in Every<br><em>Breath</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">Masterfully recreated luxury fragrances — available on demand, one sublime spray at a time.</p>
+
+  <div class="hero-scroll">
+    <span>Discover</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Filter Bar -->
+<div class="filter-section reveal">
+  <span class="filter-label">Filter by</span>
+  <div class="filter-pills">
+    <button class="pill active" onclick="filterFragrances('all', this)">All</button>
+    <button class="pill" onclick="filterFragrances('oriental', this)">Oriental</button>
+    <button class="pill" onclick="filterFragrances('floral', this)">Floral</button>
+    <button class="pill" onclick="filterFragrances('woody', this)">Woody</button>
+    <button class="pill" onclick="filterFragrances('fresh', this)">Fresh</button>
+    <button class="pill" onclick="filterFragrances('gourmand', this)">Gourmand</button>
+  </div>
+  <span class="filter-count"><strong id="count">6</strong> fragrances</span>
+</div>
+
+<!-- Fragrances Grid -->
+<section class="fragrances-section">
+  <div class="fragrances-grid" id="fragrancesGrid">
+
+    <!-- Card 1: Oud Royale - Featured -->
+    <div class="fragrance-card featured reveal" data-category="oriental woody">
+      <div class="card-bg card-bg-oud"></div>
+      <div class="card-circle"><div class="card-circle-inner"></div></div>
+      <div class="bottle-icon">
+        <svg width="90" height="170" viewBox="0 0 90 170" fill="none">
+          <rect x="34" y="0" width="22" height="14" rx="3" fill="#C9A84C" opacity="0.5"/>
+          <rect x="30" y="12" width="30" height="10" rx="2" fill="#C9A84C" opacity="0.4"/>
+          <rect x="18" y="20" width="54" height="130" rx="8" fill="#1A0D06" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.5"/>
+          <rect x="22" y="25" width="46" height="120" rx="6" fill="url(#oudGrad)"/>
+          <rect x="28" y="45" width="34" height="1" fill="#C9A84C" opacity="0.3"/>
+          <rect x="28" y="85" width="34" height="1" fill="#C9A84C" opacity="0.2"/>
+          <text x="45" y="75" text-anchor="middle" font-family="serif" font-size="7" fill="#C9A84C" opacity="0.8" font-style="italic">Oud</text>
+          <text x="45" y="86" text-anchor="middle" font-family="serif" font-size="5" fill="#9A8B6E" opacity="0.7">ROYALE</text>
+          <defs>
+            <linearGradient id="oudGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3D1F10"/>
+              <stop offset="100%" stop-color="#0A0704"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="card-content">
+        <p class="card-number">No. 001</p>
+        <h2 class="card-name">Oud Royale</h2>
+        <p class="card-subtitle">Inspired by Maison Francis Kurkdjian</p>
+        <div class="card-notes">
+          <span class="note-tag">Agarwood</span>
+          <span class="note-tag">Amber</span>
+          <span class="note-tag">Sandalwood</span>
+          <span class="note-tag">Rose</span>
+        </div>
+        <div class="card-price-row">
+          <p class="card-price">₹75 <span>/ spray</span></p>
+          <button class="card-btn">Experience Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Rose Noir -->
+    <div class="fragrance-card reveal reveal-delay-1" data-category="floral oriental">
+      <div class="card-bg card-bg-rose"></div>
+      <div class="card-circle"><div class="card-circle-inner"></div></div>
+      <div class="bottle-icon">
+        <svg width="70" height="140" viewBox="0 0 70 140" fill="none">
+          <rect x="26" y="0" width="18" height="12" rx="2" fill="#C9A84C" opacity="0.5"/>
+          <rect x="22" y="10" width="26" height="8" rx="2" fill="#C9A84C" opacity="0.4"/>
+          <rect x="12" y="16" width="46" height="110" rx="7" fill="#1A0B12" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.4"/>
+          <rect x="16" y="20" width="38" height="102" rx="5" fill="url(#roseGrad)"/>
+          <text x="35" y="75" text-anchor="middle" font-family="serif" font-size="6" fill="#C9A84C" opacity="0.8" font-style="italic">Rose</text>
+          <text x="35" y="85" text-anchor="middle" font-family="serif" font-size="4.5" fill="#9A8B6E" opacity="0.7">NOIR</text>
+          <defs>
+            <linearGradient id="roseGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3D1826"/>
+              <stop offset="100%" stop-color="#080507"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="card-content">
+        <p class="card-number">No. 002</p>
+        <h2 class="card-name">Rose Noir</h2>
+        <p class="card-subtitle">Inspired by Guerlain Mon Guerlain</p>
+        <div class="card-notes">
+          <span class="note-tag">Damask Rose</span>
+          <span class="note-tag">Patchouli</span>
+          <span class="note-tag">Musk</span>
+        </div>
+        <div class="card-price-row">
+          <p class="card-price">₹65 <span>/ spray</span></p>
+          <button class="card-btn">Experience Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Amber Elixir -->
+    <div class="fragrance-card reveal reveal-delay-2" data-category="oriental gourmand">
+      <div class="card-bg card-bg-amber"></div>
+      <div class="card-circle"><div class="card-circle-inner"></div></div>
+      <div class="bottle-icon">
+        <svg width="70" height="140" viewBox="0 0 70 140" fill="none">
+          <rect x="26" y="0" width="18" height="12" rx="2" fill="#C9A84C" opacity="0.5"/>
+          <rect x="22" y="10" width="26" height="8" rx="2" fill="#C9A84C" opacity="0.4"/>
+          <rect x="12" y="16" width="46" height="110" rx="7" fill="#1A1404" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.4"/>
+          <rect x="16" y="20" width="38" height="102" rx="5" fill="url(#amberGrad)"/>
+          <text x="35" y="72" text-anchor="middle" font-family="serif" font-size="6" fill="#C9A84C" opacity="0.8" font-style="italic">Amber</text>
+          <text x="35" y="83" text-anchor="middle" font-family="serif" font-size="4.5" fill="#9A8B6E" opacity="0.7">ELIXIR</text>
+          <defs>
+            <linearGradient id="amberGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3D2E08"/>
+              <stop offset="100%" stop-color="#090700"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="card-content">
+        <p class="card-number">No. 003</p>
+        <h2 class="card-name">Amber Elixir</h2>
+        <p class="card-subtitle">Inspired by YSL Black Opium</p>
+        <div class="card-notes">
+          <span class="note-tag">Coffee</span>
+          <span class="note-tag">Vanilla</span>
+          <span class="note-tag">White Flowers</span>
+        </div>
+        <div class="card-price-row">
+          <p class="card-price">₹60 <span>/ spray</span></p>
+          <button class="card-btn">Experience Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Nuit de Soie - Featured -->
+    <div class="fragrance-card featured reveal" data-category="fresh floral">
+      <div class="card-bg card-bg-noir"></div>
+      <div class="card-circle"><div class="card-circle-inner"></div></div>
+      <div class="bottle-icon">
+        <svg width="90" height="170" viewBox="0 0 90 170" fill="none">
+          <rect x="34" y="0" width="22" height="14" rx="3" fill="#C9A84C" opacity="0.5"/>
+          <rect x="30" y="12" width="30" height="10" rx="2" fill="#C9A84C" opacity="0.4"/>
+          <rect x="18" y="20" width="54" height="130" rx="8" fill="#070810" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.5"/>
+          <rect x="22" y="25" width="46" height="120" rx="6" fill="url(#noirGrad)"/>
+          <text x="45" y="75" text-anchor="middle" font-family="serif" font-size="6.5" fill="#C9A84C" opacity="0.8" font-style="italic">Nuit de</text>
+          <text x="45" y="87" text-anchor="middle" font-family="serif" font-size="6.5" fill="#C9A84C" opacity="0.8" font-style="italic">Soie</text>
+          <defs>
+            <linearGradient id="noirGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0F1020"/>
+              <stop offset="100%" stop-color="#020206"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="card-content">
+        <p class="card-number">No. 004</p>
+        <h2 class="card-name">Nuit de Soie</h2>
+        <p class="card-subtitle">Inspired by Chanel Chance Eau Tendre</p>
+        <div class="card-notes">
+          <span class="note-tag">Grapefruit</span>
+          <span class="note-tag">Jasmine</span>
+          <span class="note-tag">White Musk</span>
+          <span class="note-tag">Iris</span>
+        </div>
+        <div class="card-price-row">
+          <p class="card-price">₹70 <span>/ spray</span></p>
+          <button class="card-btn">Experience Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: Iris Mystique -->
+    <div class="fragrance-card reveal reveal-delay-1" data-category="floral woody">
+      <div class="card-bg card-bg-iris"></div>
+      <div class="card-circle"><div class="card-circle-inner"></div></div>
+      <div class="bottle-icon">
+        <svg width="70" height="140" viewBox="0 0 70 140" fill="none">
+          <rect x="26" y="0" width="18" height="12" rx="2" fill="#C9A84C" opacity="0.5"/>
+          <rect x="22" y="10" width="26" height="8" rx="2" fill="#C9A84C" opacity="0.4"/>
+          <rect x="12" y="16" width="46" height="110" rx="7" fill="#0D0D1A" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.4"/>
+          <rect x="16" y="20" width="38" height="102" rx="5" fill="url(#irisGrad)"/>
+          <text x="35" y="74" text-anchor="middle" font-family="serif" font-size="6" fill="#C9A84C" opacity="0.8" font-style="italic">Iris</text>
+          <text x="35" y="85" text-anchor="middle" font-family="serif" font-size="4.5" fill="#9A8B6E" opacity="0.7">MYSTIQUE</text>
+          <defs>
+            <linearGradient id="irisGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#1A1A3D"/>
+              <stop offset="100%" stop-color="#040407"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="card-content">
+        <p class="card-number">No. 005</p>
+        <h2 class="card-name">Iris Mystique</h2>
+        <p class="card-subtitle">Inspired by Tom Ford Black Orchid</p>
+        <div class="card-notes">
+          <span class="note-tag">Iris</span>
+          <span class="note-tag">Black Orchid</span>
+          <span class="note-tag">Vetiver</span>
+        </div>
+        <div class="card-price-row">
+          <p class="card-price">₹80 <span>/ spray</span></p>
+          <button class="card-btn">Experience Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6: Saffron Gold -->
+    <div class="fragrance-card reveal reveal-delay-2" data-category="oriental gourmand">
+      <div class="card-bg card-bg-saffron"></div>
+      <div class="card-circle"><div class="card-circle-inner"></div></div>
+      <div class="bottle-icon">
+        <svg width="70" height="140" viewBox="0 0 70 140" fill="none">
+          <rect x="26" y="0" width="18" height="12" rx="2" fill="#C9A84C" opacity="0.5"/>
+          <rect x="22" y="10" width="26" height="8" rx="2" fill="#C9A84C" opacity="0.4"/>
+          <rect x="12" y="16" width="46" height="110" rx="7" fill="#1A0F04" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.4"/>
+          <rect x="16" y="20" width="38" height="102" rx="5" fill="url(#saffGrad)"/>
+          <text x="35" y="72" text-anchor="middle" font-family="serif" font-size="6" fill="#C9A84C" opacity="0.8" font-style="italic">Saffron</text>
+          <text x="35" y="83" text-anchor="middle" font-family="serif" font-size="4.5" fill="#9A8B6E" opacity="0.7">GOLD</text>
+          <defs>
+            <linearGradient id="saffGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3D2208"/>
+              <stop offset="100%" stop-color="#090603"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="card-content">
+        <p class="card-number">No. 006</p>
+        <h2 class="card-name">Saffron Gold</h2>
+        <p class="card-subtitle">Inspired by Dior Sauvage Elixir</p>
+        <div class="card-notes">
+          <span class="note-tag">Saffron</span>
+          <span class="note-tag">Spices</span>
+          <span class="note-tag">Amber</span>
+        </div>
+        <div class="card-price-row">
+          <p class="card-price">₹75 <span>/ spray</span></p>
+          <button class="card-btn">Experience Now</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Luxury Banner -->
+<div class="banner reveal">
+  <div class="banner-inner">
+    <div class="banner-bg-text">RENzia</div>
+    <div class="banner-text-group">
+      <p class="banner-eyebrow">India's First Perfume Vending</p>
+      <h2 class="banner-title">Luxury, wherever<br>you <em>wander</em></h2>
+      <p class="banner-desc">Our smart vending machines live in malls, airports, hotels, and clubs across India — bringing you a curated vault of luxury fragrances, available 24 hours a day, at a fraction of boutique prices.</p>
+    </div>
+    <div class="banner-stats">
+      <div class="stat">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Always available</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">₹50</span>
+        <span class="stat-label">Starting price per spray</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">Luxury recreations</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Vending Experience Steps -->
+<section class="experience-section">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">How it works</p>
+      <h2 class="section-title">Four steps to<br><em>pure luxury</em></h2>
+    </div>
+    <a class="section-link" href="#">Find a machine near you →</a>
+  </div>
+  <div class="steps-grid">
+    <div class="step reveal">
+      <span class="step-number">01</span>
+      <svg class="step-icon" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="20" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.4"/>
+        <path d="M16 24h16M24 16v16" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="3" fill="#C9A84C" opacity="0.6"/>
+      </svg>
+      <h3 class="step-title">Approach</h3>
+      <p class="step-desc">Walk up to the nearest RENzia machine. Our black-and-gold design makes it impossible to miss in any premium venue.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <span class="step-number">02</span>
+      <svg class="step-icon" viewBox="0 0 48 48" fill="none">
+        <rect x="8" y="8" width="32" height="32" rx="4" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.4"/>
+        <path d="M16 24h4l4-8 4 16 4-8h4" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 class="step-title">Browse</h3>
+      <p class="step-desc">Navigate our touch-screen display to explore fragrance notes, descriptions, and the luxury house each scent is inspired by.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <span class="step-number">03</span>
+      <svg class="step-icon" viewBox="0 0 48 48" fill="none">
+        <rect x="10" y="14" width="28" height="20" rx="3" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.4"/>
+        <path d="M18 22h12M18 26h8" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="36" cy="12" r="4" fill="#C9A84C" opacity="0.3" stroke="#C9A84C" stroke-width="1"/>
+        <text x="36" y="15.5" text-anchor="middle" fill="#C9A84C" font-size="5" font-weight="bold">₹</text>
+      </svg>
+      <h3 class="step-title">Pay</h3>
+      <p class="step-desc">Tap to pay via UPI, card, or mobile wallet. Transactions complete in seconds. No cash, no queues, no hassle.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="step reveal reveal-delay-3">
+      <span class="step-number">04</span>
+      <svg class="step-icon" viewBox="0 0 48 48" fill="none">
+        <path d="M24 8c0 0-10 8-10 18a10 10 0 0020 0C34 16 24 8 24 8z" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.4"/>
+        <path d="M20 32c0 0 1-6 4-10" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="24" cy="36" r="2" fill="#C9A84C" opacity="0.5"/>
+      </svg>
+      <h3 class="step-title">Indulge</h3>
+      <p class="step-desc">Receive your precision-measured spray — hygienic, calibrated, and intoxicating. A moment of pure luxury, on your terms.</p>
+      <div class="step-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonial -->
+<div class="testimonial-section reveal">
+  <div class="testimonial-inner">
+    <p class="testimonial-text">"I discovered Oud Royale at the DLF Mall machine and was completely transported. The quality rivals anything I've found in a boutique — for a fraction of the price."</p>
+    <div class="testimonial-author">
+      <div class="author-line"></div>
+      <span class="author-name">Arjun Mehta</span>
+      <span class="author-city">New Delhi, India</span>
+    </div>
+  </div>
+</div>
+
+<!-- Newsletter -->
+<section class="newsletter-section reveal">
+  <div class="newsletter-inner">
+    <div class="newsletter-left">
+      <p class="newsletter-eyebrow">Join the Inner Circle</p>
+      <h2 class="newsletter-title">First access.<br><em>Rare finds.</em></h2>
+      <p class="newsletter-desc">Be notified when new fragrances arrive at machines near you, receive exclusive seasonal drops, and access dealer previews before public launch.</p>
+    </div>
+    <div class="newsletter-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label>First Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="form-field">
+          <label>City</label>
+          <input type="text" placeholder="Your city">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Email or WhatsApp</label>
+        <input type="text" placeholder="Email or +91 number">
+      </div>
+      <div class="form-submit">
+        <button class="submit-btn">Join the Circle</button>
+        <span class="form-note">No spam. Unsubscribe any time.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">REN<span>zia</span></div>
+  <p class="footer-copy">© 2025 RENzia · REN Manufacturer Pvt. Ltd. · All rights reserved.</p>
+  <nav class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Dealership</a>
+    <a href="#">Contact</a>
+  </nav>
+</footer>
+
+<script>
+  // === Custom Cursor ===
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .pill, .fragrance-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.classList.add('hovering'); ring.classList.add('hovering'); });
+    el.addEventListener('mouseleave', () => { cursor.classList.remove('hovering'); ring.classList.remove('hovering'); });
+  });
+
+  // === Scroll Reveal ===
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // === Filter ===
+  function filterFragrances(category, btn) {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.fragrance-card');
+    let count = 0;
+    cards.forEach(card => {
+      const cats = card.dataset.category || '';
+      const matches = category === 'all' || cats.includes(category);
+      card.style.opacity = matches ? '1' : '0.2';
+      card.style.transform = matches ? '' : 'scale(0.97)';
+      card.style.transition = 'opacity 0.4s, transform 0.4s';
+      if (matches) count++;
+    });
+    document.getElementById('count').textContent = count;
+  }
+
+  // === Testimonial auto-rotate ===
+  const testimonials = [
+    { text: '"I discovered Oud Royale at the DLF Mall machine and was completely transported. The quality rivals anything I\'ve found in a boutique — for a fraction of the price."', name: 'Arjun Mehta', city: 'New Delhi, India' },
+    { text: '"Rose Noir from the RENzia machine at my hotel lobby was honestly better than what I\'d bought at a duty-free counter. Absolutely mesmerising."', name: 'Priya Kapoor', city: 'Mumbai, India' },
+    { text: '"The vending machine concept blew my mind. Touch, pay, spray — I was out in 30 seconds smelling like a million rupees."', name: 'Rahul Singh', city: 'Chandigarh, India' },
+  ];
+  let tIdx = 0;
+  const tText = document.querySelector('.testimonial-text');
+  const tName = document.querySelector('.author-name');
+  const tCity = document.querySelector('.author-city');
+
+  function nextTestimonial() {
+    const inner = document.querySelector('.testimonial-inner');
+    inner.style.opacity = '0';
+    inner.style.transition = 'opacity 0.5s';
+    setTimeout(() => {
+      tIdx = (tIdx + 1) % testimonials.length;
+      tText.textContent = testimonials[tIdx].text;
+      tName.textContent = testimonials[tIdx].name;
+      tCity.textContent = testimonials[tIdx].city;
+      inner.style.opacity = '1';
+    }, 500);
+  }
+  setInterval(nextTestimonial, 5000);
+
+  // === Parallax orbs on scroll ===
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    document.querySelector('.orb-1').style.transform = `translateY(${y * 0.15}px)`;
+    document.querySelector('.orb-2').style.transform = `translateY(${-y * 0.1}px)`;
+  });
+</script>
+</body>
+</html>
